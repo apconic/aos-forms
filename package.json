@@ -1,6 +1,6 @@
 {
   "name": "aos-forms",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Forms with redux integration for react",
   "main": "lib/index.js",
   "scripts": {
@@ -21,9 +21,10 @@
     "type": "git",
     "url": "https://github.com/apconic/aos-forms.git"
   },
-  "peerDependencies": {
+  "dependencies": {
     "react": "^15.4.2",
-    "react-simple-di": "^1.2.0",
+    "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.0",
     "shallowequal": "^0.2.2",
     "lodash": "^4.13.1",
     "material-ui": "0.16.6",

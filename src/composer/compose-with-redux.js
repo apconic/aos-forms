@@ -1,6 +1,5 @@
 import React from 'react';
 import shallowEqual from 'shallowequal';
-import { useDeps } from 'react-simple-di';
 import { extend, forOwn, mapValues, omit } from 'lodash';
 
 function isNullOrUndefined(x) { return !(x != null); }
@@ -140,7 +139,7 @@ function composeWithRedux(ComposedComponent, FormName, formSchema) {
   const depsToPropsMapper = (context) => ({
     FormState: context.FormState,
   });
-  return useDeps(depsToPropsMapper)(Container);
+  return <Container />;
 }
 
 export default composeWithRedux;
