@@ -1,0 +1,33 @@
+{
+  "name": "aos-forms",
+  "version": "1.0.0",
+  "description": "Forms with redux integration for react",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel -d lib/ src/",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "suhail-ansari-apconic",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-react": "^6.11.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apconic/aos-base-ui.git"
+  },
+  "peerDependencies": {
+    "react": "^15.4.2",
+    "react-simple-di": "^1.2.0",
+    "shallowequal": "^0.2.2",
+    "lodash": "^4.13.1",
+    "material-ui": "0.15.4",
+    "validator": "^5.4.0",
+    "moment": "^2.14.1"
+  }
+}
