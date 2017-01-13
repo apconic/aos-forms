@@ -1,6 +1,6 @@
 {
   "name": "aos-forms",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Forms with redux integration for react",
   "main": "lib/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/apconic/aos-base-ui.git"
+    "url": "https://github.com/apconic/aos-forms.git"
   },
   "peerDependencies": {
     "react": "^15.4.2",
