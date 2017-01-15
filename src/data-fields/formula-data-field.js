@@ -23,8 +23,8 @@ export default class FormulaDataField extends Field {
 
   render() {
     const {
-      displayName,
-      docField,  // eslint-disable-line no-unused-vars
+      labelText,
+      name,  // eslint-disable-line no-unused-vars
       value,
       onChange, isRequired,  // eslint-disable-line no-unused-vars
       readOnly,
@@ -46,7 +46,7 @@ export default class FormulaDataField extends Field {
         value={formulaValue}
         fullWidth
         disabled
-        floatingLabelText={displayName}
+        floatingLabelText={labelText}
         {...other}
       />
     );
@@ -54,8 +54,8 @@ export default class FormulaDataField extends Field {
 }
 
 FormulaDataField.propTypes = {
-  displayName: React.PropTypes.string,
-  docField: React.PropTypes.string,
+  labelText: React.PropTypes.string,
+  name: React.PropTypes.string,
   formula: React.PropTypes.string,
   dataObject: React.PropTypes.object,
   value: React.PropTypes.any,

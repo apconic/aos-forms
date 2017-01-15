@@ -1,6 +1,20 @@
-import { toNumber, isNumber } from 'lodash';
-export default {
+import {
+  toNumber,
+  isNumber,
+  isNull,
+  isUndefined,
+  isEmpty
+} from 'lodash';
 
+export const isNullOrUndefined = (value) => {
+  return isNull(value) || isUndefined(value);
+}
+
+export const isDefined = (value) => {
+  return !isNullOrUndefined(value);
+}
+
+export default {  
   numToWord(inputNumber) {
     const str = new String(inputNumber);
     const splt = str.split('');

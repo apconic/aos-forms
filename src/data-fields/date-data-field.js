@@ -1,36 +1,142 @@
 import React from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import Field from './field';
+import { isNullOrUndefined, isDefined } from './util';
 
-class DateDataField extends Field {
+const { PropTypes } = React;
+export default class DateDataField extends Field {
+  static propTypes = {
+    labelText: PropTypes.string,
+    value: PropTypes.object,
+    name: PropTypes.string,
+    onChange: PropTypes.func,
+
+    DateTimeFormat: PropTypes.func,
+    autoOk: PropTypes.func,
+    cancelLabel: PropTypes.node,
+    className: PropTypes.string,
+    container: PropTypes.string,
+    defaultDate: PropTypes.object,
+    dialogContainerStyle: PropTypes.object,
+    disableYearSelection: PropTypes.bool,
+    disabled: PropTypes.bool,
+    firstDayOfWeek: PropTypes.number,
+    formatDate: PropTypes.func,
+    locale: PropTypes.string,
+
+    maxDate: PropTypes.object,
+    minDate: PropTypes.object,
+    mode: PropTypes.string,
+    okLabel: PropTypes.node,
+    onChange: PropTypes.func,
+    onDismiss: PropTypes.func,
+    onFocus: PropTypes.func,
+    onShow: PropTypes.func,
+    onTouchTap: PropTypes.func,
+    shouldDisableDate: PropTypes.func,
+    style: PropTypes.object,
+
+    textFieldStyle: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
-    this.onDateChanged = this.onDateChanged.bind(this);
   }
 
-  onDateChanged(event, newDate) {
-    this.props.onChange(this.props.docField, newDate);
+  onDateChanged = (event, newDate) => {
+    const { onChange, name } = this.props;
+    onChange(name, newDate);
   }
 
   render() {
-    const { value, displayName, isRequired, onChange, docField, type, ...other } = this.props; // eslint-disable-line
+    const {
+      value,
+      isRequired,
+      labelText,
+
+      DateTimeFormat,
+      autoOk,
+      cancelLabel,
+      className,
+      container,
+      defaultDate,
+      dialogContainerStyle,
+      disableYearSelection,
+      disabled,
+      firstDayOfWeek,
+      formatDate,
+      locale,
+
+      maxDate,
+      minDate,
+      mode,
+      okLabel,
+      onDismiss,
+      onFocus,
+      onShow,
+      onTouchTap,
+      shouldDisableDate,
+      style,
+
+      textFieldStyle,
+    } = this.props;
+
+    const newProps = {
+      floatingLabelText: labelText,
+      autoOk: autoOk || false,
+      className: className || '',
+      disabled: disabled || false,
+      firstDayOfWeek: firstDayOfWeek || 1,
+      mode: mode || 'portrait',
+      onChange: this.onDateChanged,
+      dialogContainerStyle: dialogContainerStyle,
+      disableYearSelection: disableYearSelection,
+      maxDate,
+      minDate,
+      mode,
+      okLabel,
+      onDismiss,
+      onFocus,
+      onShow,
+      onTouchTap,
+      shouldDisableDate,
+      style,
+      textFieldStyle,
+    };
+
+    if (!isNullOrUndefined(DateTimeFormat)) {
+      newProps.DateTimeFormat = DateTimeFormat;
+    }
+
+    if (!isNullOrUndefined(cancelLabel)) {
+      newProps.cancelLabel = cancelLabel;
+    }
+
+    if (!isNullOrUndefined(container)) {
+      newProps.container = container;
+    }
+
+    if (isDefined(defaultDate)) {
+      newProps.defaultDate = defaultDate;
+    }
+
+    if (isDefined(formatDate)) {
+      newProps.formatDate = formatDate;
+    }
+
+    if (isDefined(locale)) {
+      newProps.locale = locale;
+    }
+
+    if (isRequired && (isNullOrUndefined(value) && isNullOrUndefined(defaultDate))) {
+      newProps.errorText = "*Required";
+    } else {
+      newProps.value = value;
+    }
+
     return (
-      <DatePicker
-        floatingLabelText={displayName}
-        autoOk
-        value={value}
-        onChange={this.onDateChanged}
-        {...other}
-      />
+      <DatePicker {...newProps} />
     );
   }
 }
 
-DateDataField.propTypes = {
-  value: React.PropTypes.object,
-  displayName: React.PropTypes.string,
-  docField: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-};
-
-export default DateDataField;

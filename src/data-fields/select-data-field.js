@@ -48,21 +48,21 @@ export default class SelectDataField extends Field {
 
   handleChange(event, selectedIndex, value) {
     event.preventDefault();
-    this.props.onChange(this.props.docField, value);
+    this.props.onChange(this.props.name, value);
   }
 
   render() {
     const { value,
             onChange, // eslint-disable-line no-unused-vars
-            docField, // eslint-disable-line no-unused-vars
+            name, // eslint-disable-line no-unused-vars
             isRequired, // eslint-disable-line no-unused-vars
             menuItems, // eslint-disable-line no-unused-vars
-            displayName,
+            labelText,
             ...other } = this.props;
     return (
       <SelectField
         value={value}
-        floatingLabelText={displayName}
+        floatingLabelText={labelText}
         onChange={this.handleChange}
         errorText={this.state.errorText}
         fullWidth
@@ -78,7 +78,7 @@ SelectDataField.propTypes = {
   value: React.PropTypes.any,
   onChange: React.PropTypes.func,
   menuItems: React.PropTypes.array,
-  docField: React.PropTypes.string,
-  displayName: React.PropTypes.string,
+  name: React.PropTypes.string,
+  labelText: React.PropTypes.string,
   isRequired: React.PropTypes.bool,
 };

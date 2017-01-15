@@ -195,11 +195,10 @@ DataField.propTypes = {
       React.PropTypes.array,
     ]
   ),
-  docField: React.PropTypes.string,
-  displayName: React.PropTypes.string,
+  name: React.PropTypes.string,
+  labelText: React.PropTypes.string,
   onChange: React.PropTypes.func,
   menuItems: React.PropTypes.array,
   disabled: React.PropTypes.bool,
   type: React.PropTypes.string,
-  schema: React.PropTypes.object,
 };

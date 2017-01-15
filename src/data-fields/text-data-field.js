@@ -11,20 +11,20 @@ export default class TextDataField extends Field {
   }
 
   onBlur(event) {
-    const { onChange, docField, onBlurred } = this.props;
+    const { onChange, name, onBlurred } = this.props;
     const textFieldValue = trim(event.target.value);
     if (onBlurred) {
-      onBlurred(docField, textFieldValue);
+      onBlurred(name, textFieldValue);
       return;
     }
-    onChange(docField, textFieldValue);
+    onChange(name, textFieldValue);
   }
 
   onTextChange(event) {
-    const { onChange, docField } = this.props;
+    const { onChange, name } = this.props;
     event.preventDefault();
     const textFieldValue = event.target.value;
-    onChange(docField, textFieldValue);
+    onChange(name, textFieldValue);
   }
 
   validateText(text) {
@@ -41,10 +41,10 @@ export default class TextDataField extends Field {
   }
 
   render() {
-    const { displayName,
+    const { labelText,
             onChange, // eslint-disable-line no-unused-vars
             value,
-            docField, // eslint-disable-line no-unused-vars
+            name, // eslint-disable-line no-unused-vars
             isRequired, // eslint-disable-line no-unused-vars
             validatorType, // eslint-disable-line no-unused-vars
             onInvalid, // eslint-disable-line no-unused-vars
@@ -59,7 +59,7 @@ export default class TextDataField extends Field {
         onBlur={this.onBlur}
         fullWidth
         ref="textField"
-        floatingLabelText={displayName}
+        floatingLabelText={labelText}
         errorText={errorText}
         {...other}
       />
@@ -68,9 +68,9 @@ export default class TextDataField extends Field {
 }
 
 TextDataField.propTypes = {
-  displayName: React.PropTypes.string,
+  labelText: React.PropTypes.string,
   value: React.PropTypes.any,
-  docField: React.PropTypes.string,
+  name: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
   isRequired: React.PropTypes.bool,
   validatorType: React.PropTypes.string,

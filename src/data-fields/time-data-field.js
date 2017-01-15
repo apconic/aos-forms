@@ -9,15 +9,15 @@ export default class TimeDataField extends Field {
   }
 
   handleChange(event, time) {
-    this.props.onChange(this.props.docField, time);
+    this.props.onChange(this.props.name, time);
   }
 
   render() {
-    const { value, displayName, onChange, docField, type, isRequired, ...other } = this.props; // eslint-disable-line
+    const { value, labelText, onChange, name, type, isRequired, ...other } = this.props; // eslint-disable-line
     return (
       <TimePicker
         value={value}
-        floatingLabelText={displayName}
+        floatingLabelText={labelText}
         autoOk onChange={this.handleChange}
         { ...other }
       />
@@ -27,7 +27,7 @@ export default class TimeDataField extends Field {
 
 TimeDataField.propTypes = {
   value: React.PropTypes.object,
-  displayName: React.PropTypes.string,
-  docField: React.PropTypes.string,
+  labelText: React.PropTypes.string,
+  name: React.PropTypes.string,
   onChange: React.PropTypes.func,
 };

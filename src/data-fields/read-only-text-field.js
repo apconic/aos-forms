@@ -2,8 +2,8 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 
 const ReadOnlyDataField = (props) => {
-  const { displayName,
-    docField, // eslint-disable-line no-unused-vars
+  const { labelText,
+    name, // eslint-disable-line no-unused-vars
     value,
     onChange, isRequired, // eslint-disable-line no-unused-vars
     ...other } = props;
@@ -13,15 +13,15 @@ const ReadOnlyDataField = (props) => {
       value={value || ''}
       fullWidth
       disabled={disabled}
-      floatingLabelText={displayName}
+      floatingLabelText={labelText}
       {...other}
     />
   );
 };
 
 ReadOnlyDataField.propTypes = {
-  displayName: React.PropTypes.string,
-  docField: React.PropTypes.string,
+  labelText: React.PropTypes.string,
+  name: React.PropTypes.string,
   value: React.PropTypes.any,
   onChange: React.PropTypes.func,
 };

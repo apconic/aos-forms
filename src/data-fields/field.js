@@ -9,17 +9,45 @@ export default class Field extends React.Component {
     return (!(text || text === 0) || (trimmedText.length === 0));
   }
 
+  isInRange(number) {
+    const { minValue, maxValue } = this.props;
+    if (!this.checkBlank(minValue) && !isNaN(minValue)) {
+      if (toNumber(number) < toNumber(minValue)) {
+        return false;
+      }
+    }
+    if (!this.checkBlank(maxValue) && !isNaN(maxValue)) {
+      if (toNumber(number) > toNumber(maxValue)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  isValid(text, validatorTypeIn) {
+    const { validatorType } = this.props;
+    const validatorToUse = validatorType || validatorTypeIn;
+    if (!validatorToUse) {
+      return true;
+    }
+
+    if (!this.checkBlank(text) && !validator[validatorToUse](`${text}`)) {
+      return false;
+    }
+    return true;
+  }
+
   fieldIsInvalid() {
-    const { onInvalid, displayName, docField } = this.props;
+    const { onInvalid, labelText, name } = this.props;
     if (onInvalid) {
-      onInvalid(true, displayName, docField);
+      onInvalid(true, labelText, name);
     }
   }
 
   fieldIsValid() {
-    const { onInvalid, displayName, docField } = this.props;
+    const { onInvalid, labelText, name } = this.props;
     if (onInvalid) {
-      onInvalid(false, displayName, docField);
+      onInvalid(false, labelText, name);
     }
   }
 
@@ -76,9 +104,9 @@ export default class Field extends React.Component {
 }
 
 Field.propTypes = {
-  displayName: React.PropTypes.string,
+  labelText: React.PropTypes.string,
   value: React.PropTypes.any,
-  docField: React.PropTypes.string,
+  name: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
   isRequired: React.PropTypes.bool,
   minValue: React.PropTypes.number,

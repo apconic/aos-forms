@@ -21,7 +21,7 @@ export default class PasswordDataField extends Field {
     event.preventDefault();
     const textFieldValue = this.refs.passwordField.getValue();
     this.setState({ errorText: this.validateText(textFieldValue) });
-    onChange(this.props.docField, textFieldValue);
+    onChange(this.props.name, textFieldValue);
   }
 
   validateText(text) {
@@ -34,15 +34,15 @@ export default class PasswordDataField extends Field {
   }
 
   render() {
-    const { displayName, isRequired,
-      value, docField, onChange, ...other } = this.props; // eslint-disable-line no-unused-vars
+    const { labelText, isRequired,
+      value, name, onChange, ...other } = this.props; // eslint-disable-line no-unused-vars
     return (
       <TextField
         value={value || ''}
         onChange={this.onTextChange}
         ref="passwordField"
         fullWidth
-        floatingLabelText={displayName}
+        floatingLabelText={labelText}
         type="password"
         errorText={this.state.errorText}
         {...other}
@@ -52,9 +52,9 @@ export default class PasswordDataField extends Field {
 }
 
 PasswordDataField.propTypes = {
-  displayName: React.PropTypes.string,
+  labelText: React.PropTypes.string,
   value: React.PropTypes.any,
-  docField: React.PropTypes.string,
+  name: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
   isRequired: React.PropTypes.bool,
 };

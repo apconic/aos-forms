@@ -1,4 +1,4 @@
-import ActionTypes from './forms-action-types';
+import ActionTypes from '../actions/forms-action-types';
 import { isArray } from 'lodash';
 
 const changeFormField = (forms, payload) => {

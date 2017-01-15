@@ -2,41 +2,63 @@ import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
 import Field from './field';
 
+const { PropTypes } = React;
 export default class CheckboxDataField extends Field {
-  constructor(props) {
-    super(props);
-    this.onCheck = this.onCheck.bind(this);
-  }
+  static propTypes = {
+    labelText: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.bool,
+    name: PropTypes.string,
+    checkedIcon: PropTypes.element,
+    defaultChecked: PropTypes.bool,
+    disabled: PropTypes.bool,
+    iconStyle: PropTypes.object,
+    inputStyle: PropTypes.object,
+    labelPosition: PropTypes.string,
+    labelStyle: PropTypes.labelStyle,
+    style: PropTypes.object,
+    uncheckedIcon: PropTypes.element,
+    valueLink: PropTypes.object,
+  };
 
-  onCheck(event, checked) {
-    this.props.onChange(this.props.docField, checked);
+  onCheck = (event, checked) => {
+    const { onChange, name } = this.props;
+    onChange(name, checked);
   }
 
   render() {
     const {
+      labelText,
       value,
-      displayName,
-      docField,
-      onChange, isRequired, // eslint-disable-line no-unused-vars
+      name,
+      checkedIcon,
+      defaultChecked,
+      disabled,
+      iconStyle,
+      inputStyle,
+      labelPosition,
+      labelStyle,
       style,
-      ...other,
+      uncheckedIcon,
+      valueLink,
     } = this.props;
     return (
       <Checkbox
-        label={displayName}
-        name={docField}
+        label={labelText}
         checked={value}
+        name={name}
+        checkedIcon={checkedIcon}
+        defaultChecked={defaultChecked}
+        disabled={disabled}
+        iconStyle={iconStyle}
+        inputStyle={inputStyle}
+        labelPosition={labelPosition}
+        labelStyle={labelStyle}
         onCheck={this.onCheck}
         style={style}
-        {...other}
+        uncheckedIcon={uncheckedIcon}
+        valueLink={valueLink}
       />
     );
   }
 }
-
-CheckboxDataField.propTypes = {
-  value: React.PropTypes.bool,
-  displayName: React.PropTypes.string,
-  docField: React.PropTypes.string,
-  onChange: React.PropTypes.func,
-};

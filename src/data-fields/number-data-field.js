@@ -1,78 +1,91 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import { floor } from 'lodash';
+import { floor, isEmpty } from 'lodash';
 import Field from './field';
+import { isNullOrUndefined } from 'util';
 
+const { PropTypes } = React;
 export default class NumberDataField extends Field {
+  static propTypes = {
+    decimalPlaces: PropTypes.number,
+    defaultValue: PropTypes.any,
+    disabled: PropTypes.bool,
+    errorStyle: PropTypes.object,
+    floatingLabelFixed: PropTypes.bool,
+    floatingLabelStyle: PropTypes.object,
+    fullWidth: PropTypes.bool,
+    hintStyle: PropTypes.object,
+    hintText: PropTypes.node,
+    isRequired: PropTypes.bool,
+    labelText: PropTypes.string,
+    minValue: PropTypes.number,
+    maxValue: PropTypes.number,
+    name: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    onInvalid: PropTypes.func,
+    type: PropTypes.string,
+    value: PropTypes.any,
+  };
+
   constructor(props) {
     super(props);
-    this.state = {
-      errorText: this.validateText(props.isRequired, props.value),
-    };
-    this.onTextChange = this.onTextChange.bind(this);
   }
 
-  componentWillReceiveProps(newProps) {
-    const { isRequired } = newProps;
-    this.setState({
-      errorText: this.validateText(isRequired, newProps.value),
-    });
-  }
-
-  onTextChange(event) {
-    const { onChange, isRequired, decimalPlaces } = this.props;
+  onTextChange = (event) => {
     event.preventDefault();
+    const { name, onChange } = this.props;
     const textFieldValue = this.refs.numberField.getValue();
-    const errorText = this.validateText(isRequired, textFieldValue);
-    this.setState({
-      errorText,
-    });
-    onChange(this.props.docField, floor(textFieldValue, decimalPlaces));
-  }
-
-  validateText(isRequired, text) {
-    try {
-      this.checkMandatory(text);
-      this.checkValidation(text, 'isDecimal');
-      this.checkRange(text);
-    } catch (error) {
-      this.fieldIsInvalid();
-      return error.message;
-    }
-    this.fieldIsValid();
-    return '';
+    onChange(name, textFieldValue);
   }
 
   render() {
-    const { displayName,
-            onChange, // eslint-disable-line no-unused-vars
-            value,
-            docField, // eslint-disable-line no-unused-vars
-            isRequired, // eslint-disable-line no-unused-vars
-            onInvalid, // eslint-disable-line no-unused-vars
-            ...other } = this.props;
+    const {
+      decimalPlaces,
+      defaultValue,
+      disabled,
+      errorStyle,
+      floatingLabelFixed,
+      floatingLabelStyle,
+      fullWidth,
+      hintStyle,
+      hintText,
+      isRequired,
+      labelText,
+      minValue,
+      maxValue,
+      name,
+      onChange,
+      onInvalid,
+      value,
+    } = this.props;
+
+    const newProps = {
+      defaultValue,
+      disabled: disabled || false,
+      errorStyle,
+      floatingLabelText: labelText,
+      floatingLabelFixed,
+      floatingLabelStyle,
+      fullWidth: fullWidth || true,
+      hintStyle,
+      hintText,
+      name,
+      onChange: this.onTextChange,
+      ref: 'numberField',
+      type: 'number'
+    };
+
+    if (isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
+      newProps.errorText = '*Required';
+    } else if(!this.isValid(value, 'isDecimal')) {
+      newProps.errorText = '*Not a number';
+    } else if(!this.isInRange(value)) {
+      newProps.errorText = '*Not within allowed range'
+    } else {
+      newProps.value = floor(value, decimalPlaces || 0);
+    }
     return (
-      <TextField
-        value={value}
-        onChange={this.onTextChange}
-        fullWidth
-        ref="numberField"
-        floatingLabelText={displayName}
-        errorText={this.state.errorText}
-        {...other}
-      />
+      <TextField {...newProps} />
     );
   }
 }
-
-NumberDataField.propTypes = {
-  displayName: React.PropTypes.string,
-  value: React.PropTypes.any,
-  docField: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired,
-  isRequired: React.PropTypes.bool,
-  minValue: React.PropTypes.number,
-  maxValue: React.PropTypes.number,
-  decimalPlaces: React.PropTypes.number,
-  onInvalid: React.PropTypes.func,
-};
