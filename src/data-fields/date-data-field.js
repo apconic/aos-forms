@@ -1,10 +1,9 @@
 import React from 'react';
 import DatePicker from 'material-ui/DatePicker';
-import Field from './field';
 import { isNullOrUndefined, isDefined } from './util';
 
-const { PropTypes } = React;
-export default class DateDataField extends Field {
+const { PropTypes, Component } = React;
+export default class DateDataField extends Component {
   static propTypes = {
     labelText: PropTypes.string,
     value: PropTypes.object,
@@ -20,6 +19,7 @@ export default class DateDataField extends Field {
     dialogContainerStyle: PropTypes.object,
     disableYearSelection: PropTypes.bool,
     disabled: PropTypes.bool,
+    errorText: PropTypes.string,
     firstDayOfWeek: PropTypes.number,
     formatDate: PropTypes.func,
     locale: PropTypes.string,
@@ -63,6 +63,7 @@ export default class DateDataField extends Field {
       dialogContainerStyle,
       disableYearSelection,
       disabled,
+      errorText,
       firstDayOfWeek,
       formatDate,
       locale,
@@ -91,6 +92,7 @@ export default class DateDataField extends Field {
       onChange: this.onDateChanged,
       dialogContainerStyle: dialogContainerStyle,
       disableYearSelection: disableYearSelection,
+      errorText,
       maxDate,
       minDate,
       mode,
@@ -128,9 +130,7 @@ export default class DateDataField extends Field {
       newProps.locale = locale;
     }
 
-    if (isRequired && (isNullOrUndefined(value) && isNullOrUndefined(defaultDate))) {
-      newProps.errorText = "*Required";
-    } else {
+    if (isDefined(value)) {
       newProps.value = value;
     }
 

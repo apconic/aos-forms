@@ -1,9 +1,8 @@
 import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
-import Field from './field';
 
-const { PropTypes } = React;
-export default class CheckboxDataField extends Field {
+const { PropTypes, Component } = React;
+export default class CheckboxDataField extends Component {
   static propTypes = {
     labelText: PropTypes.string,
     onChange: PropTypes.func,
