@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel -d lib/ src/",
     "prepublish": "yarn run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "yarn run build && mocha"
   },
   "keywords": [],
   "author": "suhail-ansari-apconic",
@@ -16,7 +16,9 @@
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-env": "^1.1.8",
-    "babel-preset-react": "^6.11.1"
+    "babel-preset-react": "^6.11.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   },
   "repository": {
     "type": "git",

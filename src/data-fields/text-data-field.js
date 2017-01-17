@@ -106,6 +106,7 @@ export default class TextDataField extends Component {
     } else {
       newProps.value = value;
     }
+    console.log(newProps);
     return (
       <TextField {...newProps} />
     );
