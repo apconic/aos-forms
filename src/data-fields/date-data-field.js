@@ -28,7 +28,6 @@ export default class DateDataField extends Component {
     minDate: PropTypes.object,
     mode: PropTypes.string,
     okLabel: PropTypes.node,
-    onChange: PropTypes.func,
     onDismiss: PropTypes.func,
     onFocus: PropTypes.func,
     onShow: PropTypes.func,
@@ -39,10 +38,6 @@ export default class DateDataField extends Component {
     textFieldStyle: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   onDateChanged = (event, newDate) => {
     const { onChange, name } = this.props;
     onChange(name, newDate);
@@ -51,7 +46,6 @@ export default class DateDataField extends Component {
   render() {
     const {
       value,
-      isRequired,
       labelText,
 
       DateTimeFormat,
@@ -90,12 +84,11 @@ export default class DateDataField extends Component {
       firstDayOfWeek: firstDayOfWeek || 1,
       mode: mode || 'portrait',
       onChange: this.onDateChanged,
-      dialogContainerStyle: dialogContainerStyle,
-      disableYearSelection: disableYearSelection,
+      dialogContainerStyle,
+      disableYearSelection,
       errorText,
       maxDate,
       minDate,
-      mode,
       okLabel,
       onDismiss,
       onFocus,

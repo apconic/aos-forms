@@ -19,13 +19,8 @@ export default class NumberDataField extends Component {
     labelText: PropTypes.string,
     name: PropTypes.string,
     onChange: PropTypes.func,
-    type: PropTypes.string,
     value: PropTypes.any,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   onTextChange = (event, newValue) => {
     event.preventDefault();
@@ -64,11 +59,11 @@ export default class NumberDataField extends Component {
       hintText,
       name,
       onChange: this.onTextChange,
-      type: 'number'
+      type: 'number',
     };
 
     if (isNullOrUndefined(value)) {
-      if (isDefined(defaultValue)){
+      if (isDefined(defaultValue)) {
         newProps.value = floor(defaultValue, decimalPlaces || 0);
       }
     } else {

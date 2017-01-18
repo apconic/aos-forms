@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import { trim, isNull, isUndefined } from 'lodash';
+import { trim } from 'lodash';
 import { isNullOrUndefined } from './util';
 
 const { PropTypes, Component } = React;
@@ -28,10 +28,6 @@ export default class TextDataField extends Component {
     type: PropTypes.string,
     value: PropTypes.any,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   onBlur = (event) => {
     const { onChange, name, onBlurred } = this.props;
@@ -67,8 +63,6 @@ export default class TextDataField extends Component {
       labelText,
       multiLine,
       name,
-      onChange,
-      onBlurred,
       rows,
       rowsMax,
       type,
@@ -91,7 +85,7 @@ export default class TextDataField extends Component {
       inputStyle,
       multiLine,
       name,
-      onChange : this.onTextChange,
+      onChange: this.onTextChange,
       onBlur: this.onBlur,
       rows,
       rowsMax,

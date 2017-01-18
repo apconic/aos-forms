@@ -1,11 +1,10 @@
-import ActionTypes from '../actions/forms-action-types';
 import { isArray, cloneDeep } from 'lodash';
+import ActionTypes from '../actions/forms-action-types';
 import { validateSingleField, validateObject } from './form-validation';
 import { isNullOrUndefined } from '../data-fields/util';
 
 const changeFormField = (forms, payload) => {
-  if (isNullOrUndefined(payload.form)
-  || isNullOrUndefined(payload.field)) {
+  if (isNullOrUndefined(payload.form) || isNullOrUndefined(payload.field)) {
     return forms;
   }
 
@@ -53,8 +52,20 @@ const removeValueFromArrayField = (forms, payload) => {
     return forms;
   }
   const form = forms[payload.form];
-  const newArray = [...form[payload.field].slice(0, payload.value),
-  ...form[payload.field].slice(payload.value + 1)];
+  if (isNullOrUndefined(form[payload.field])
+      || !isArray(form[payload.field].value)
+  ) {
+    return forms;
+  }
+
+  if (payload.value >= form[payload.field].value.length) {
+    return forms;
+  }
+
+  const newArray = [
+    ...form[payload.field].value.slice(0, payload.value),
+    ...form[payload.field].value.slice(payload.value + 1),
+  ];
   return {
     ...forms,
     [payload.form]: {
@@ -84,7 +95,7 @@ const clearForm = (forms, payload) => {
   }
 
   const data = validateObject({}, oldFormData.schema);
-  const formData = {...data};
+  const formData = { ...data };
   formData.schema = cloneDeep(oldFormData.schema);
   return { ...forms, [payload.form]: formData };
 };
@@ -103,8 +114,7 @@ const deleteFormFromState = (forms, payload) => {
 export default (state = {}, action) => {
   switch (action.type) {
     case ActionTypes.INIT_FORM:
-      const newState = addForm(state, action.payload);
-      return newState;
+      return addForm(state, action.payload);
     case ActionTypes.FORM_FIELD_CHANGE:
       return changeFormField(state, action.payload);
     case ActionTypes.ADD_VALUE_TO_ARRAY_FIELD:
