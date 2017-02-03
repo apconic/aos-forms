@@ -6,6 +6,11 @@
   },
   "rules": {
     "no-underscore-dangle": 0,
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "functions": "ignore"
+    }],
     "linebreak-style": 0,
     "no-global-assign": 0,
     "no-unsafe-negation": 0,

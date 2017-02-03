@@ -50,20 +50,19 @@ function composeWithRedux(ComposedComponent, FormName, formSchema) {
       }
     }
 
-    componentWillUnmount() {
-      this.unsubscribe();
-      this.mounted = false;
-      const { unregister } = this.props;
-      unregister(FormName);
-    }
-
-    /*
     shouldComponentUpdate(nextProps, nextState) {
       let shouldUpdate = (!shallowEqual(this.props, nextProps));
       shouldUpdate = shouldUpdate || (!shallowEqual(this.state.payload, nextState.payload));
       return shouldUpdate;
     }
 
+    componentWillUnmount() {
+      this.mounted = false;
+      const { unregister } = this.props;
+      unregister(FormName);
+    }
+
+    /*
     onAutoCompleteSelect(field, value) {
       const { FormState } = this.props;
       FormState.formFieldChange(field, value, this.state.formName);
@@ -102,19 +101,18 @@ function composeWithRedux(ComposedComponent, FormName, formSchema) {
           'unregister',
           'updateField',
           'addElementToArrayField',
-          'removeElementFromArrayField']
+          'removeElementFromArrayField',
+        ]
       );
       return <ComposedComponent {...newProps} {...newSchema} />;
     }
-  };
+  }
 
   Container.propTypes = {
     data: React.PropTypes.object,
     register: React.PropTypes.func,
     unregister: React.PropTypes.func,
     updateField: React.PropTypes.func,
-    //addElementToArrayField: React.PropTypes.func,
-    //removeElementFromArrayField: React.PropTypes.func,
   };
 
   return connect(

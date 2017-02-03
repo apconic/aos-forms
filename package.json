@@ -1,6 +1,6 @@
 {
   "name": "aos-forms",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Generic data field and form with redux integration for react",
   "main": "lib/index.js",
   "scripts": {
@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "lodash": "^4.13.1",
-    "material-ui": "0.16.6",
+    "material-ui": "0.16.7",
     "moment": "^2.14.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
