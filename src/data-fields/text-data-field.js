@@ -71,7 +71,6 @@ export default class TextDataField extends Component {
 
     const newProps = {
       className,
-      defaultValue,
       disabled,
       errorText,
       errorStyle,
@@ -90,17 +89,9 @@ export default class TextDataField extends Component {
       rows,
       rowsMax,
       type,
+      value,
     };
 
-    if (isNullOrUndefined(value)) {
-      if (isNullOrUndefined(defaultValue)) {
-        newProps.value = '';
-      }
-      newProps.value = defaultValue;
-    } else {
-      newProps.value = value;
-    }
-    console.log(newProps);
     return (
       <TextField {...newProps} />
     );

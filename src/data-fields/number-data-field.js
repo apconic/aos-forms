@@ -1,13 +1,9 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import { floor, isEmpty } from 'lodash';
-import { isNullOrUndefined, isDefined } from './util';
 
 const { PropTypes, Component } = React;
 export default class NumberDataField extends Component {
   static propTypes = {
-    decimalPlaces: PropTypes.number,
-    defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
     errorText: PropTypes.string,
     errorStyle: PropTypes.object,
@@ -31,8 +27,6 @@ export default class NumberDataField extends Component {
 
   render() {
     const {
-      decimalPlaces,
-      defaultValue,
       disabled,
       errorText,
       errorStyle,
@@ -47,7 +41,6 @@ export default class NumberDataField extends Component {
     } = this.props;
 
     const newProps = {
-      defaultValue,
       disabled: disabled || false,
       errorText,
       errorStyle,
@@ -60,15 +53,9 @@ export default class NumberDataField extends Component {
       name,
       onChange: this.onTextChange,
       type: 'number',
+      value,
     };
 
-    if (isNullOrUndefined(value)) {
-      if (isDefined(defaultValue)) {
-        newProps.value = floor(defaultValue, decimalPlaces || 0);
-      }
-    } else {
-      newProps.value = floor(value, decimalPlaces || 0);
-    }
     return (
       <TextField {...newProps} />
     );

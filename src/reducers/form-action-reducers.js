@@ -1,7 +1,18 @@
+/* This forms reducer create form state for each form
+The structure of state is as below
+{
+  'form-name' : {
+    'field-name' : { value: 'field-value', validationResult: { result : true | false } },
+    'schema': { ... },
+    'valid': true | false,
+  }
+}
+*/
+
 import { isArray, cloneDeep } from 'lodash';
 import ActionTypes from '../actions/forms-action-types';
-import { validateSingleField, validateObject } from './form-validation';
-import { isNullOrUndefined } from '../data-fields/util';
+import { validateSingleField, validateObject, isFormValid } from './form-validation';
+import { isNullOrUndefined } from '../util';
 
 const changeFormField = (forms, payload) => {
   if (isNullOrUndefined(payload.form) || isNullOrUndefined(payload.field)) {
@@ -22,6 +33,7 @@ const changeFormField = (forms, payload) => {
     return forms;
   }
   const newFormData = { ...forms[payload.form], [payload.field]: fieldData };
+  newFormData.valid = isFormValid(newFormData);
   const newForms = { ...forms, [payload.form]: newFormData };
   return newForms;
 };
@@ -80,8 +92,9 @@ const addForm = (forms, payload) => {
     return forms;
   }
   const data = validateObject(payload.data, payload.schema);
-  const formData = { ...data };
+  const formData = cloneDeep(data);
   formData.schema = cloneDeep(payload.schema);
+  formData.valid = isFormValid(formData);
   return { ...forms, [payload.form]: formData };
 };
 
@@ -97,6 +110,7 @@ const clearForm = (forms, payload) => {
   const data = validateObject({}, oldFormData.schema);
   const formData = { ...data };
   formData.schema = cloneDeep(oldFormData.schema);
+  formData.valid = isFormValid(formData);
   return { ...forms, [payload.form]: formData };
 };
 

@@ -16,9 +16,10 @@ testCase('Forms reducer tests', () => {
         test: {
           firstName: { value: 'Suhail Ansari', validationResult: { result: true } },
           schema,
+          valid: true,
         },
       };
-      let state = formsReducer({}, formActionCreators.init({}, 'test', schema));
+      let state = formsReducer({}, formActionCreators.register({}, 'test', schema));
       expect(state).to.deep.equal({
         test: {
           firstName: {
@@ -26,6 +27,7 @@ testCase('Forms reducer tests', () => {
             value: undefined,
           },
           schema,
+          valid: true,
         },
       });
       state = formsReducer(state, formActionCreators.updateField('firstName', 'Suhail Ansari', 'test'));
@@ -43,10 +45,11 @@ testCase('Forms reducer tests', () => {
         test: {
           firstName: { value: undefined, validationResult: { result: true }},
           schema,
+          valid: true,
         },
       };
 
-      let state = formsReducer({}, formActionCreators.init({}, 'test', schema));
+      let state = formsReducer({}, formActionCreators.register({}, 'test', schema));
       expect(state).to.deep.equal(result);
 
       state = formsReducer(state, formActionCreators.updateField(null, 'Suhail Ansari', 'test'));
@@ -68,10 +71,11 @@ testCase('Forms reducer tests', () => {
         test: {
           quantity: { value: [], validationResult: { result: true } },
           schema,
+          valid: true,
         },
       };
 
-      const state = formsReducer({}, formActionCreators.init({}, 'test', schema));
+      const state = formsReducer({}, formActionCreators.register({}, 'test', schema));
       expect(state).to.deep.equal(result);
     });
 
@@ -86,6 +90,7 @@ testCase('Forms reducer tests', () => {
         test: {
           quantity: { value: [], validationResult: { result: true } },
           schema,
+          valid: true,
         },
       };
 
@@ -93,10 +98,11 @@ testCase('Forms reducer tests', () => {
         test: {
           quantity: { value: [2], validationResult: { result: true } },
           schema,
+          valid: true,
         },
       };
 
-      let state = formsReducer({}, formActionCreators.init({}, 'test', schema));
+      let state = formsReducer({}, formActionCreators.register({}, 'test', schema));
       expect(state).to.deep.equal(result);
 
       state = formsReducer(state, formActionCreators.addElementToArrayField('quantity', 2, 'test'));
@@ -117,10 +123,11 @@ testCase('Forms reducer tests', () => {
         test: {
           quantity: { value: [], validationResult: { result: true } },
           schema,
+          valid: true,
         },
       };
 
-      const state = formsReducer({}, formActionCreators.init({}, 'test', schema));
+      const state = formsReducer({}, formActionCreators.register({}, 'test', schema));
       expect(state).to.not.equal(result);
       expect(state).to.deep.equal(result);
       const newState = formsReducer(state,

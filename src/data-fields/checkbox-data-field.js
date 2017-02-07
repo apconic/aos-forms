@@ -9,12 +9,11 @@ export default class CheckboxDataField extends Component {
     value: PropTypes.bool,
     name: PropTypes.string,
     checkedIcon: PropTypes.element,
-    defaultChecked: PropTypes.bool,
     disabled: PropTypes.bool,
     iconStyle: PropTypes.object,
     inputStyle: PropTypes.object,
     labelPosition: PropTypes.string,
-    labelStyle: PropTypes.labelStyle,
+    labelStyle: PropTypes.object,
     style: PropTypes.object,
     uncheckedIcon: PropTypes.element,
     valueLink: PropTypes.object,
@@ -31,7 +30,6 @@ export default class CheckboxDataField extends Component {
       value,
       name,
       checkedIcon,
-      defaultChecked,
       disabled,
       iconStyle,
       inputStyle,
@@ -47,7 +45,6 @@ export default class CheckboxDataField extends Component {
         checked={value}
         name={name}
         checkedIcon={checkedIcon}
-        defaultChecked={defaultChecked}
         disabled={disabled}
         iconStyle={iconStyle}
         inputStyle={inputStyle}

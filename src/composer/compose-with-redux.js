@@ -14,7 +14,7 @@ const checkError = (validationResult) => {
     return validationResult.error;
   }
   return '';
-}
+};
 
 function composeWithRedux(ComposedComponent, FormName, formSchema) {
   class Container extends React.Component {

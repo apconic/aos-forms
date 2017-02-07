@@ -1,4 +1,4 @@
-import ActionTypes from './forms-action-types.js';
+import ActionTypes from './forms-action-types';
 
 export default {
   register(formData, formName, formSchema) {

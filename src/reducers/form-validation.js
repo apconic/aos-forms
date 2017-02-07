@@ -1,11 +1,15 @@
-import { isEmpty, toUpper } from 'lodash';
+import { isEmpty, toUpper, forOwn, omit, toNumber } from 'lodash';
 import validator from 'validator';
-import { isNullOrUndefined, isDefined } from '../data-fields/util';
-import FieldTypes from '../field-types';
+import DataType from '../data-types';
+import Util, { isNullOrUndefined, isDefined } from '../util';
 
 const createError = error => ({ result: false, error });
 
 const isLessThanMinValue = (value, minValue) => {
+  if (isNullOrUndefined(minValue)) {
+    return false;
+  }
+
   if (isNullOrUndefined(value || isEmpty(value))) {
     return true;
   } else if (value < minValue) {
@@ -15,6 +19,10 @@ const isLessThanMinValue = (value, minValue) => {
 };
 
 const isGreaterThanMaxValue = (value, maxValue) => {
+  if (isNullOrUndefined(maxValue)) {
+    return false;
+  }
+
   if (isNullOrUndefined(value) || isEmpty(value)) {
     return true;
   } else if (value > maxValue) {
@@ -46,13 +54,22 @@ const isValidRegex = (text, validationRegex) => {
   return true;
 };
 
+export function isFormValid(form) {
+  const formFields = omit(form, 'schema', 'valid');
+  let valid = true;
+  forOwn(formFields, (value) => {
+    valid = valid && (value && value.validationResult ? value.validationResult.result : false);
+  });
+  return valid;
+}
+
 export function validateDataAgainstSchema(name, value, schema) {
   if (isNullOrUndefined(schema)) {
     return { result: true };
   }
 
   switch (toUpper(schema.fieldType)) {
-    case FieldTypes.String:
+    case DataType.String:
       if (schema.isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
         return {
           result: false,
@@ -68,7 +85,7 @@ export function validateDataAgainstSchema(name, value, schema) {
         return createError('*Invalid value');
       }
       return { result: true };
-    case FieldTypes.number:
+    case DataType.Number:
       if (schema.isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
         return {
           result: false,
@@ -88,7 +105,15 @@ export function validateDataAgainstSchema(name, value, schema) {
         return { result: false, error: '*Invalid value' };
       }
       return { result: true };
-    case FieldTypes.Date:
+    case DataType.Date:
+      if (schema.isRequired && isNullOrUndefined(value)) {
+        return {
+          result: false,
+          error: '*Required',
+        };
+      }
+      return { result: true };
+    case DataType.Time:
       if (schema.isRequired && isNullOrUndefined(value)) {
         return {
           result: false,
@@ -110,24 +135,30 @@ export function validateSingleField(name, value, schema) {
   if (isNullOrUndefined(value) && isDefined(schema.defaultValue)) {
     fieldValue = schema.defaultValue;
   }
-  if (toUpper(schema.fieldType) === FieldTypes.array && isNullOrUndefined(fieldValue)) {
+
+  // If the field is array type than initialize it to an empty Array
+  // if value is null or undefined.
+  if (toUpper(schema.fieldType) === DataType.Array && isNullOrUndefined(fieldValue)) {
     fieldValue = [];
   }
 
   const validationResult = validateDataAgainstSchema(name, fieldValue, schema);
-  return { value: fieldValue, validationResult };
+
+  // Apply decimal places to the number
+  if (validationResult.result && (toUpper(schema.fieldType) === DataType.Number)) {
+    fieldValue = Util.fixDouble(toNumber(fieldValue), schema.decimalPlaces);
+  }
+  return { value: fieldValue, validationResult: { ...validationResult } };
 }
 
 export function validateObject(data, schema) {
   const outputData = {};
-  for (const prop in schema) {
-    if (schema.hasOwnProperty(prop)) {
-      const retValue = validateSingleField(prop, data[prop], schema[prop]);
-      if (isDefined(retValue)) {
-        outputData[prop] = retValue;
-      }
+  forOwn(schema, (value, key) => {
+    const retValue = validateSingleField(key, data[key], value);
+    if (isDefined(retValue)) {
+      outputData[key] = retValue;
     }
-  }
+  });
+
   return outputData;
 }
-

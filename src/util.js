@@ -3,7 +3,7 @@ import {
   isNumber,
   isNull,
   isUndefined,
-  isEmpty
+  forOwn
 } from 'lodash';
 
 export const isNullOrUndefined = (value) => {
@@ -14,7 +14,17 @@ export const isDefined = (value) => {
   return !isNullOrUndefined(value);
 }
 
-export default {  
+export default {
+  getDefaultValues(formSchema) {
+    const defaultValues = {};
+    forOwn(formSchema, (value, key) => {
+      if (value && value.defaultValue) {
+        defaultValues[key] = value.defaultValue;
+      }
+    });
+    return defaultValues;
+  },
+
   numToWord(inputNumber) {
     const str = new String(inputNumber);
     const splt = str.split('');

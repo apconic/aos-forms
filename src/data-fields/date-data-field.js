@@ -53,7 +53,6 @@ export default class DateDataField extends Component {
       cancelLabel,
       className,
       container,
-      defaultDate,
       dialogContainerStyle,
       disableYearSelection,
       disabled,
@@ -109,10 +108,6 @@ export default class DateDataField extends Component {
 
     if (!isNullOrUndefined(container)) {
       newProps.container = container;
-    }
-
-    if (isDefined(defaultDate)) {
-      newProps.defaultDate = defaultDate;
     }
 
     if (isDefined(formatDate)) {
