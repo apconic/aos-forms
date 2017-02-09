@@ -10,4 +10,5 @@ export default {
   Time: 'TIME',
   ReadOnly: 'READ_ONLY',
   Toggle: 'TOGGLE',
+  AutoComplete: 'AUTO_COMPLETE',
 };

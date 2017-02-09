@@ -4,16 +4,16 @@ import DataType from '../data-types';
 import FieldType from '../field-type';
 
 export default class TextFieldSchema {
-  name: String;
+  name: string;
   fieldType: DataType;
   type: FieldType;
   isRequired: boolean;
-  defaultValue: String;
-  labelText: String;
-  validationRegex: String;
+  defaultValue: string;
+  labelText: string;
+  validationRegex: string;
   disabled: boolean;
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.String;
     this.type = FieldType.Text;
@@ -32,7 +32,7 @@ export default class TextFieldSchema {
     return this;
   }
 
-  default(defaultValue: String): TextFieldSchema {
+  default(defaultValue: string): TextFieldSchema {
     this.defaultValue = defaultValue;
     return this;
   }
@@ -42,12 +42,12 @@ export default class TextFieldSchema {
     return this;
   }
 
-  label(labelText: String) : TextFieldSchema {
+  label(labelText: string) : TextFieldSchema {
     this.labelText = labelText;
     return this;
   }
 
-  regex(validationRegex: String) : TextFieldSchema {
+  regex(validationRegex: string) : TextFieldSchema {
     this.validationRegex = validationRegex;
     return this;
   }

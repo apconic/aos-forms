@@ -69,6 +69,14 @@ export function validateDataAgainstSchema(name, value, schema) {
   }
 
   switch (toUpper(schema.fieldType)) {
+    case DataType.Any:
+      if (schema.isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
+        return {
+          result: false,
+          error: '*Required',
+        };
+      }
+      return { result: true };
     case DataType.String:
       if (schema.isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
         return {

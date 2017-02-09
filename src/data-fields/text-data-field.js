@@ -1,7 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 import { trim } from 'lodash';
-import { isNullOrUndefined } from './util';
 
 const { PropTypes, Component } = React;
 export default class TextDataField extends Component {

@@ -11,6 +11,7 @@ import FormulaDataField from './formula-data-field';
 import NumberDataField from './number-data-field';
 import ReadOnlyDataField from './read-only-text-field';
 import ToggleDataField from './toggle-data-field';
+import AutoCompleteField from './autocomplete-data-field';
 import FieldType from '../field-type';
 
 export default class DataField extends React.Component {
@@ -19,6 +20,10 @@ export default class DataField extends React.Component {
       return this.props.type;
     }
     return FieldType.ReadOnly;
+  }
+
+  createAutoCompleteComponent() {
+    return <AutoCompleteField {...this.props} />;
   }
 
   createToggleComponent() {
@@ -43,7 +48,8 @@ export default class DataField extends React.Component {
   }
 
   createTimeComponent() {
-    return <TimeDataField {...this.props} />;
+    const value = new Date(this.props.value);
+    return <TimeDataField value={value} {...this.props} />;
   }
 
   createCheckboxComponent() {
@@ -69,6 +75,8 @@ export default class DataField extends React.Component {
   createField() {
     const type = this.getType();
     switch (toUpper(type)) {
+      case FieldType.AutoComplete:
+        return this.createAutoCompleteComponent();
       case FieldType.Date:
         return this.createDateComponent();
       case FieldType.Time:

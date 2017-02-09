@@ -4,22 +4,22 @@ import DataType from '../data-types';
 import FieldType from '../field-type';
 
 export default class ToggleSchema {
-  name: String;
+  name: string;
   fieldType: DataType;
   type: FieldType;
   defaultValue: boolean;
-  labelText: String;
+  labelText: string;
   disabled: boolean;
-  labelPosition: String;
+  labelPosition: string;
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.Boolean;
     this.type = FieldType.Toggle;
     this.defaultValue = false;
   }
 
-  label(labelText: String) : ToggleSchema {
+  label(labelText: string) : ToggleSchema {
     this.labelText = labelText;
     return this;
   }
@@ -29,7 +29,7 @@ export default class ToggleSchema {
     return this;
   }
 
-  position(labelPosition: String) : ToggleSchema {
+  position(labelPosition: string) : ToggleSchema {
     this.labelPosition = labelPosition;
     return this;
   }

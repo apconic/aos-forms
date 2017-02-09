@@ -4,24 +4,23 @@ import DataType from '../data-types';
 import FieldType from '../field-type';
 
 export default class TimeFieldSchema {
-  name: String;
+  name: string;
   fieldType: DataType;
   type: FieldType;
   isRequired: boolean;
   defaultValue: Date;
-  labelText: String;
+  labelText: string;
   disabled: boolean;
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.Time;
     this.type = FieldType.Time;
     this.isRequired = false;
     this.disabled = false;
-    this.defaultValue = null;
   }
 
-  label(labelText: String) : TimeFieldSchema {
+  label(labelText: string) : TimeFieldSchema {
     this.labelText = labelText;
     return this;
   }

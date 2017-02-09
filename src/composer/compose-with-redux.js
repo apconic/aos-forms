@@ -1,6 +1,6 @@
 import React from 'react';
 import shallowEqual from 'shallowequal';
-import { extend, forOwn, mapValues, omit } from 'lodash';
+import { extend, mapValues } from 'lodash';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FormActionCreators from '../actions/forms-action-creators';
@@ -77,15 +77,8 @@ function composeWithRedux(ComposedComponent, FormName, formSchema) {
       const schema = formSchema;
       const form = this.props[FormName];
       const newSchema = mapValues(schema, (field) => {
-        const fieldValue = form && form[field.name] ? form[field.name] : { value: undefined, validationResult: { result: true } };
-        if (field.type === 'CODE_VALUE' || field.type === 'LIST' || field.type === 'AUTOCOMPLETE') {
-          return { ...field,
-            onChange: this.onChange,
-            value: fieldValue.value,
-            onItemSelect: this.onAutoCompleteSelect,
-            errorText: checkError(fieldValue.validationResult),
-          };
-        }
+        const valueForUndefinedField = { value: undefined, validationResult: { result: true } };
+        const fieldValue = form && form[field.name] ? form[field.name] : valueForUndefinedField;
         return {
           ...field,
           onChange: this.onChange,
@@ -94,17 +87,13 @@ function composeWithRedux(ComposedComponent, FormName, formSchema) {
         };
       });
 
-      const newProps = omit(this.props,
-        [
-          'data',
-          'register',
-          'unregister',
-          'updateField',
-          'addElementToArrayField',
-          'removeElementFromArrayField',
-        ]
-      );
-      return <ComposedComponent {...newProps} {...newSchema} />;
+      const formValues = mapValues(schema, (field) => {
+        const fieldValue = form && form[field.name] ? form[field.name].value : undefined;
+        return fieldValue;
+      });
+
+      const formValid = form && form.valid ? form.valid : false;
+      return <ComposedComponent{...newSchema} valid={formValid} formValues={formValues} />;
     }
   }
 

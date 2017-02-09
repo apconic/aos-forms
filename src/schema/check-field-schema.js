@@ -4,22 +4,22 @@ import DataType from '../data-types';
 import FieldType from '../field-type';
 
 export default class CheckFieldSchema {
-  name: String;
+  name: string;
   fieldType: DataType;
   type: FieldType;
   defaultValue: boolean;
-  labelText: String;
+  labelText: string;
   disabled: boolean;
-  labelPosition: String;
+  labelPosition: string;
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.Boolean;
     this.type = FieldType.Bool;
     this.defaultValue = false;
   }
 
-  label(labelText: String) : CheckFieldSchema {
+  label(labelText: string) : CheckFieldSchema {
     this.labelText = labelText;
     return this;
   }
@@ -29,7 +29,7 @@ export default class CheckFieldSchema {
     return this;
   }
 
-  position(labelPosition: String) : CheckFieldSchema {
+  position(labelPosition: string) : CheckFieldSchema {
     this.labelPosition = labelPosition;
     return this;
   }

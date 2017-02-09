@@ -5,4 +5,5 @@ export default {
   Date: 'DATE',
   Time: 'TIME',
   Boolean: 'BOOLEAN',
+  Any: 'ANY',
 };

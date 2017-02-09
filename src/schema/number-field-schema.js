@@ -4,7 +4,7 @@ import DataType from '../data-types';
 import FieldType from '../field-type';
 
 export default class NumberSchema {
-  name: String;
+  name: string;
   fieldType: DataType;
   type: FieldType;
   isRequired: boolean;
@@ -12,10 +12,10 @@ export default class NumberSchema {
   defaultValue: number;
   minValue: number;
   maxValue: number;
-  labelText: String;
+  labelText: string;
   disabled: boolean;
 
-  constructor(name: String) {
+  constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.Number;
     this.type = FieldType.Number;
@@ -55,7 +55,7 @@ export default class NumberSchema {
     return this;
   }
 
-  label(labelText: String) : NumberSchema {
+  label(labelText: string) : NumberSchema {
     this.labelText = labelText;
     return this;
   }

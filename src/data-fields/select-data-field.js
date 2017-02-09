@@ -1,5 +1,4 @@
 import React from 'react';
-import { find, isUndefined } from 'lodash';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
