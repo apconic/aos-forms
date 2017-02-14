@@ -1,6 +1,6 @@
-# Apconic base UI based on Material UI
+# Forms based on Material UI
 
-A Higher Order Component using react and redux to keep form state.
+A Higher Order Component using react and redux to keep form state using material-ui components.
 This package only supports Material UI (https://github.com/callemall/material-ui).
 
 ## Getting Started
