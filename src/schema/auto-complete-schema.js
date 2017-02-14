@@ -9,11 +9,13 @@ export default class AutoCompleteSchema {
   dataSourceConfig: any;
   fieldType: FieldType;
   type: DataType;
+  fullWidth: boolean;
 
   constructor(name: string) {
     this.name = name;
     this.fieldType = DataType.String;
     this.type = FieldType.AutoComplete;
+    this.fullWidth = true;
   }
 
   label(labelText: string) : AutoCompleteSchema {

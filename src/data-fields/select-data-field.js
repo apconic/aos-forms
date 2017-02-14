@@ -49,7 +49,17 @@ export default class SelectDataField extends Component {
         );
       });
     } else {
-      menu = dataSource;
+      let index = 0;
+      menu = dataSource.map((item) => {
+        const menuItemProps = {};
+        index += 1;
+        menuItemProps.value = item;
+        menuItemProps.primaryText = item;
+        menuItemProps.key = index;
+        return (
+          <MenuItem {...menuItemProps} />
+        );
+      });
     }
     const newProps = {
       value,
