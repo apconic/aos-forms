@@ -8,6 +8,5 @@ export {
   DataField,
   FormsReducer,
   DataFieldSchema,
-  NumberSchema,
   composeWithRedux
 };

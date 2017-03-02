@@ -105,7 +105,7 @@ This package only supports Material UI (https://github.com/callemall/material-ui
     formValues: PropTypes.object // This object contains property and there values.
   };
 
-  const ReduxApp = composeWithRedux(App, 'App', formSchema);
+  const ReduxApp = composeWithRedux('App', formSchema)(App);
   ReactDOM.render(
     <Provider store={store}>
       <MuiThemeProvider>

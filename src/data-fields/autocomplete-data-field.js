@@ -6,12 +6,13 @@ export default class AutoCompleteDataField extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     dataSourceConfig: PropTypes.object,
+    displayField: PropTypes.string,
     errorText: PropTypes.node,
     labelText: PropTypes.string,
     fullWidth: PropTypes.bool,
     name: PropTypes.string,
     filter: PropTypes.func,
-    value: PropTypes.string,
+    value: PropTypes.any,
     onChange: PropTypes.func,
   };
 
@@ -29,11 +30,18 @@ export default class AutoCompleteDataField extends Component {
       name,
       filter,
       value,
+      displayField,
     } = this.props;
 
+    let searchText = value;
+    if (dataSourceConfig) {
+      searchText = value ? value[dataSourceConfig.text] : '';
+    } else if (value != null && typeof (value) === 'object' && displayField) {
+      searchText = value[displayField];
+    }
     return (
       <AutoComplete
-        searchText={value}
+        searchText={searchText}
         dataSource={dataSource}
         dataSourceConfig={dataSourceConfig}
         errorText={errorText}

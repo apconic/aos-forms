@@ -1,6 +1,6 @@
 {
   "name": "aos-forms",
-  "version": "2.0.4",
+  "version": "2.1.7",
   "description": "Material UI based form schema with redux integration for react",
   "main": "lib/index.js",
   "scripts": {

@@ -34,11 +34,13 @@ export default class SelectDataField extends Component {
     } = this.props;
     let menu = null;
     if (dataSourceConfig) {
+      let index = 0;
       menu = dataSource.map((item) => {
         const menuItemProps = {};
         menuItemProps.value = dataSourceConfig.valueKey ? item[dataSourceConfig.valueKey] : item;
         menuItemProps.primaryText = item[dataSourceConfig.primaryTextKey];
-        menuItemProps.key = item[dataSourceConfig.primaryText];
+        index += 1;
+        menuItemProps.key = index;
         if (dataSourceConfig.secondaryTextKey) {
           menuItemProps.secondaryText = item[dataSourceConfig.secondaryTextKey];
         }

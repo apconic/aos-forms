@@ -10,6 +10,7 @@ export default class AutoCompleteSchema {
   fieldType: FieldType;
   type: DataType;
   fullWidth: boolean;
+  displayField: string;
 
   constructor(name: string) {
     this.name = name;
@@ -28,9 +29,10 @@ export default class AutoCompleteSchema {
     return this;
   }
 
-  objects(dataSource: Array<Object>, dataSourceConfig: Object) : AutoCompleteSchema {
+  objects(dataSource: Array<Object>, dataSourceConfig: Object, displayField: string) : AutoCompleteSchema {
     this.dataSource = dataSource;
     this.dataSourceConfig = dataSourceConfig;
+    this.displayField = displayField;
     return this;
   }
 }
