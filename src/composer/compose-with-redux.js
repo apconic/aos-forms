@@ -18,7 +18,7 @@ const checkError = (validationResult) => {
   return '';
 };
 
-const defaultDataTransform = (data) => data;
+const defaultDataTransform = data => data;
 function composeWithRedux(
   FormName: string,
   formSchema: any,
