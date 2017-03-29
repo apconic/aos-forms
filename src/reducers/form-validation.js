@@ -10,7 +10,7 @@ const isLessThanMinValue = (value, minValue) => {
     return false;
   }
 
-  if (isNullOrUndefined(value || isEmpty(value))) {
+  if (isNullOrUndefined(value)) {
     return true;
   } else if (value < minValue) {
     return true;
@@ -23,7 +23,7 @@ const isGreaterThanMaxValue = (value, maxValue) => {
     return false;
   }
 
-  if (isNullOrUndefined(value) || isEmpty(value)) {
+  if (isNullOrUndefined(value)) {
     return true;
   } else if (value > maxValue) {
     return true;
