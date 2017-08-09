@@ -14,6 +14,7 @@ export default class AutoCompleteDataField extends Component {
     filter: PropTypes.func,
     value: PropTypes.any,
     onChange: PropTypes.func,
+    disabled: PropTypes.bool,
   };
 
   onNewRequest = (chosenRequest) => {
@@ -31,6 +32,7 @@ export default class AutoCompleteDataField extends Component {
       filter,
       value,
       displayField,
+      disabled,
     } = this.props;
 
     let searchText = value;
@@ -41,6 +43,7 @@ export default class AutoCompleteDataField extends Component {
     }
     return (
       <AutoComplete
+        disabled={disabled || false}
         searchText={searchText}
         dataSource={dataSource}
         dataSourceConfig={dataSourceConfig}

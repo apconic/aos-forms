@@ -14,6 +14,7 @@ export default class SelectDataField extends Component {
     labelText: PropTypes.string,
     disabled: PropTypes.bool,
     style: PropTypes.object,
+    multiple: PropTypes.bool,
   };
 
   handleChange = (event, selectedIndex, value) => {
@@ -31,6 +32,7 @@ export default class SelectDataField extends Component {
       errorText,
       disabled,
       style,
+      multiple,
     } = this.props;
     let menu = null;
     if (dataSourceConfig) {
@@ -72,6 +74,7 @@ export default class SelectDataField extends Component {
       fullWidth: true,
       onChange: this.handleChange,
       style,
+      multiple: multiple || false,
     };
 
     return (
