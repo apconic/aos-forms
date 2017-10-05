@@ -46,13 +46,14 @@ const addValueToArrayField = (forms, payload) => {
     return forms;
   }
   const form = forms[payload.form];
-  const newArray = form[payload.field] ? [...form[payload.field], payload.value] : [payload.value];
+  const newArray =
+    form[payload.field] ? [...form[payload.field].value, payload.value] : [payload.value];
   return {
     ...forms,
     [payload.form]: {
       ...forms[payload.form],
       [payload.field]: { value: newArray, validationResult: { result: true } }, 
-    } 
+    },
   };
 };
 
