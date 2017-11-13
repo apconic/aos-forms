@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-const { PropTypes, Component } = React; 
 export default class SelectDataField extends Component {
   static propTypes = {
     value: PropTypes.any,

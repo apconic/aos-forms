@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 
-const { PropTypes, Component } = React;
 export default class ToggleDataField extends Component {
   static propTypes = {
     value: PropTypes.bool,
