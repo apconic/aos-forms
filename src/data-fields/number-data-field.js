@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 
-const { PropTypes, Component } = React;
 export default class NumberDataField extends Component {
   static propTypes = {
     disabled: PropTypes.bool,

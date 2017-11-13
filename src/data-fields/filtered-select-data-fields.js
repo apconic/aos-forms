@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { differenceWith } from 'lodash';
 import SelectDataField from './select-data-field';
 
@@ -11,9 +12,9 @@ const FilteredSelectDataField = (props) => {
 };
 
 FilteredSelectDataField.propTypes = {
-  initialArray: React.PropTypes.array,
-  filterArray: React.PropTypes.array,
-  filterFunction: React.PropTypes.func,
+  initialArray: PropTypes.array,
+  filterArray: PropTypes.array,
+  filterFunction: PropTypes.func,
 };
 
 export default FilteredSelectDataField;

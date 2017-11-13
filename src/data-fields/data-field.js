@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { toUpper } from 'lodash';
 import TimeDataField from './time-data-field';
 import TextDataField from './text-data-field';
@@ -14,7 +15,7 @@ import ToggleDataField from './toggle-data-field';
 import AutoCompleteField from './autocomplete-data-field';
 import FieldType from '../field-type';
 
-export default class DataField extends React.Component {
+export default class DataField extends Component {
   getType() {
     if (this.props.type) {
       return this.props.type;
@@ -112,14 +113,14 @@ export default class DataField extends React.Component {
 }
 
 DataField.propTypes = {
-  value: React.PropTypes.oneOfType(
+  value: PropTypes.oneOfType(
     [
-      React.PropTypes.string,
-      React.PropTypes.bool,
-      React.PropTypes.number,
-      React.PropTypes.object,
-      React.PropTypes.array,
+      PropTypes.string,
+      PropTypes.bool,
+      PropTypes.number,
+      PropTypes.object,
+      PropTypes.array,
     ]
   ),
-  type: React.PropTypes.string,
+  type: PropTypes.string,
 };

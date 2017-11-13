@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TimePicker from 'material-ui/TimePicker';
 
-const { Component, PropTypes } = React;
 export default class TimeDataField extends Component {
   static propTypes = {
     value: PropTypes.object,

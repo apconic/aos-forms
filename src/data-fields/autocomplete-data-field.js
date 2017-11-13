@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 
-const { PropTypes, Component } = React;
 export default class AutoCompleteDataField extends Component {
   static propTypes = {
     dataSource: PropTypes.array,

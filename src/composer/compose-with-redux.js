@@ -1,6 +1,7 @@
 // @flow
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import shallowEqual from 'shallowequal';
 import { extend, mapValues } from 'lodash';
 import { connect } from 'react-redux';

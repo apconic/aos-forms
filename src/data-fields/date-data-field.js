@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import DatePicker from 'material-ui/DatePicker';
 import { isNullOrUndefined, isDefined } from '../util';
 
-const { PropTypes, Component } = React;
 export default class DateDataField extends Component {
   static propTypes = {
     labelText: PropTypes.string,
