@@ -12,6 +12,7 @@ export default class AutoCompleteDataField extends Component {
     fullWidth: PropTypes.bool,
     name: PropTypes.string,
     filter: PropTypes.func,
+    onUpdateInput: PropTypes.func,
     value: PropTypes.any,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
@@ -33,6 +34,7 @@ export default class AutoCompleteDataField extends Component {
       value,
       displayField,
       disabled,
+      onUpdateInput,
     } = this.props;
 
     let searchText = value;
@@ -53,6 +55,8 @@ export default class AutoCompleteDataField extends Component {
         name={name}
         filter={filter}
         onNewRequest={this.onNewRequest}
+        onUpdateInput={onUpdateInput}
+        listStyle={{ maxHeight: 200, overflow: 'auto' }}
       />
     );
   }
