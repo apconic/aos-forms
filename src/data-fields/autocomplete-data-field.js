@@ -35,6 +35,7 @@ export default class AutoCompleteDataField extends Component {
       displayField,
       disabled,
       onUpdateInput,
+      listStyle,
     } = this.props;
 
     let searchText = value;
@@ -56,7 +57,7 @@ export default class AutoCompleteDataField extends Component {
         filter={filter}
         onNewRequest={this.onNewRequest}
         onUpdateInput={onUpdateInput}
-        listStyle={{ maxHeight: 200, overflow: 'auto' }}
+        listStyle={listStyle}
       />
     );
   }
