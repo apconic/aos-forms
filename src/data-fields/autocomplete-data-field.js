@@ -12,15 +12,59 @@ export default class AutoCompleteDataField extends Component {
     fullWidth: PropTypes.bool,
     name: PropTypes.string,
     filter: PropTypes.func,
-    onUpdateInput: PropTypes.func,
     value: PropTypes.any,
     onChange: PropTypes.func,
     disabled: PropTypes.bool,
   };
 
+  state = {
+    list: [],
+  };
+
   onNewRequest = (chosenRequest) => {
     this.props.onChange(this.props.name, chosenRequest);
   };
+
+  onTextChange = (textFieldValue) => {
+    const { name, onChange } = this.props;
+    this.setState({
+      selectedItem: textFieldValue,
+    });
+    if (onChange) {
+      onChange(name, textFieldValue);
+    }
+    this.searchInDataSource(textFieldValue);
+  }
+
+  searchInDataSource = (inputValue) => {
+    const { dataSource, dataSourceConfig } = this.props;
+    function criteria(element) {
+      const expr = new RegExp(`.*${inputValue}.*`, 'i');
+      return (element[dataSourceConfig.text].search(expr) >= 0);
+    }
+    const updatedList = dataSource.filter(criteria);
+    const updatedLimitedList = updatedList.slice(0, 5);
+    this.setState({ list: updatedLimitedList });
+  }
+
+  handleUpdateInput = (inputValue) => {
+    this.onTextChange(inputValue);
+  }
+
+  handleBlur = () => {
+    const { name, dataSourceConfig } = this.props;
+    const { list } = this.state;
+    if (list.length === 0) {
+      this.onTextChange(null);
+      return;
+    }
+    let selectedValue = this.state.selectedItem;
+    
+    if (selectedValue && list[0]) {
+      selectedValue = (dataSourceConfig) ? list[0] : list[0][name];
+    }
+    this.onTextChange(selectedValue);
+  }
 
   render() {
     const {
@@ -34,11 +78,9 @@ export default class AutoCompleteDataField extends Component {
       value,
       displayField,
       disabled,
-      onUpdateInput,
-      listStyle,
     } = this.props;
-
     let searchText = value;
+    const { list } = this.state;
     if (dataSourceConfig) {
       searchText = value ? value[dataSourceConfig.text] : '';
     } else if (value != null && typeof (value) === 'object' && displayField) {
@@ -48,7 +90,7 @@ export default class AutoCompleteDataField extends Component {
       <AutoComplete
         disabled={disabled || false}
         searchText={searchText}
-        dataSource={dataSource}
+        dataSource={list || dataSource}
         dataSourceConfig={dataSourceConfig}
         errorText={errorText}
         floatingLabelText={labelText}
@@ -56,8 +98,8 @@ export default class AutoCompleteDataField extends Component {
         name={name}
         filter={filter}
         onNewRequest={this.onNewRequest}
-        onUpdateInput={onUpdateInput}
-        listStyle={listStyle}
+        onUpdateInput={this.handleUpdateInput}
+        onBlur={this.handleBlur}
       />
     );
   }
