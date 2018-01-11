@@ -39,12 +39,14 @@ export default class AutoCompleteDataField extends Component {
   searchInDataSource = (inputValue) => {
     const { dataSource, dataSourceConfig } = this.props;
     function criteria(element) {
-      const expr = new RegExp(`.*${inputValue}.*`, 'i');
-      return (element[dataSourceConfig.text].search(expr) >= 0);
+      const expr = new RegExp(`.*${inputValue.toUpperCase()}.*`, 'i');
+      return (element[dataSourceConfig.text].toUpperCase().search(expr) >= 0);
     }
-    const updatedList = dataSource.filter(criteria);
-    const updatedLimitedList = updatedList.slice(0, 5);
-    this.setState({ list: updatedLimitedList });
+    if (inputValue) {
+      const updatedList = dataSource.filter(criteria);
+      const updatedLimitedList = updatedList.slice(0, 5);
+      this.setState({ list: updatedLimitedList });
+    }
   }
 
   handleUpdateInput = (inputValue) => {
@@ -52,18 +54,18 @@ export default class AutoCompleteDataField extends Component {
   }
 
   handleBlur = () => {
-    const { name, dataSourceConfig } = this.props;
+    const { name, dataSourceConfig, onChange } = this.props;
     const { list } = this.state;
     if (list.length === 0) {
       this.onTextChange(null);
       return;
     }
     let selectedValue = this.state.selectedItem;
-    
+
     if (selectedValue && list[0]) {
       selectedValue = (dataSourceConfig) ? list[0] : list[0][name];
     }
-    this.onTextChange(selectedValue);
+    onChange(name, selectedValue);
   }
 
   render() {
