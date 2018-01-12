@@ -105,6 +105,33 @@ testCase('Forms reducer tests', () => {
       expect(state).to.deep.equal(result);
     });
 
+    assertions('should validate and put correct numeric data when initialized', () => {
+      const schema = {
+        quantity: {
+          labelText: 'Quantity',
+          name: 'quantity',
+          fieldType: 'number',
+          type: 'number',
+          required: true,
+        },
+      };
+      const data = {
+        quantity: 123,
+      };
+      const result = {
+        test: {
+          quantity: { value: 123, validationResult: { result: true } },
+          schema,
+          valid: true,
+        },
+      };
+      const state = formsReducer(
+        {},
+        formActionCreators.register(data, 'test', schema)
+      );
+      expect(state).to.deep.equal(result);
+    });
+
     assertions('should delete form when delete action is called', () => {
       const schema = {
         firstName: {

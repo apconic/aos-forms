@@ -1,4 +1,4 @@
-import { isEmpty, toUpper, forOwn, omit, toNumber } from 'lodash';
+import { isEmpty, toUpper, forOwn, omit, toNumber, isFinite } from 'lodash';
 import validator from 'validator';
 import DataType from '../data-types';
 import Util, { isNullOrUndefined, isDefined } from '../util';
@@ -94,11 +94,35 @@ export function validateDataAgainstSchema(name, value, schema) {
       }
       return { result: true };
     case DataType.Number:
-      if (schema.isRequired && (isNullOrUndefined(value) || isEmpty(value))) {
-        return {
-          result: false,
-          error: '*Required',
-        };
+      if (schema.isRequired) {
+        if(isNullOrUndefined(value)) {
+          return {
+            result: false,
+            error: '*Required',
+          };
+        }
+
+        if (typeof value === 'string') {
+          if (isEmpty(value)) {
+            return {
+              result: false,
+              error: '*Required',
+            };              
+          }
+
+          const numberVal = toNumber(value);
+          if (!isFinite(numberVal)) {
+            return {
+              result: false,
+              error: '*Required',
+            };              
+          }
+        } else if (typeof value !== 'number') {
+          return {
+            result: false,
+            error: '*Required',
+          };              
+        }
       }
 
       if (!isValid(value, 'isDecimal')) {
@@ -154,7 +178,9 @@ export function validateSingleField(name, value, schema) {
 
   // Apply decimal places to the number
   if (validationResult.result && (toUpper(schema.fieldType) === DataType.Number)) {
-    fieldValue = Util.fixDouble(toNumber(fieldValue), schema.decimalPlaces);
+    if (typeof fieldValue === 'string' && !isEmpty(fieldValue) && isFinite(toNumber(fieldValue))) {
+      fieldValue = Util.fixDouble(toNumber(fieldValue), schema.decimalPlaces);
+    }
   }
   return { value: fieldValue, validationResult: { ...validationResult } };
 }

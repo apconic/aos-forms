@@ -22,7 +22,7 @@ export default class NumberSchema {
     this.isRequired = false;
     this.decimalPlaces = 0;
     this.disabled = false;
-    this.defaultValue = 0;
+    this.defaultValue = '';
   }
 
   readOnly() : NumberSchema {
