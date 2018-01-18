@@ -40,7 +40,7 @@ const isValid = (text, validatorToUse) => {
     return false;
   }
   return true;
-}
+};
 
 const isValidRegex = (text, validationRegex) => {
   if (isNullOrUndefined(text) || isNullOrUndefined(validationRegex)) {
@@ -95,7 +95,7 @@ export function validateDataAgainstSchema(name, value, schema) {
       return { result: true };
     case DataType.Number:
       if (schema.isRequired) {
-        if(isNullOrUndefined(value)) {
+        if (isNullOrUndefined(value)) {
           return {
             result: false,
             error: '*Required',
@@ -107,7 +107,7 @@ export function validateDataAgainstSchema(name, value, schema) {
             return {
               result: false,
               error: '*Required',
-            };              
+            };
           }
 
           const numberVal = toNumber(value);
@@ -115,18 +115,18 @@ export function validateDataAgainstSchema(name, value, schema) {
             return {
               result: false,
               error: '*Required',
-            };              
+            };
           }
         } else if (typeof value !== 'number') {
           return {
             result: false,
             error: '*Required',
-          };              
+          };
         }
       }
 
       if (!isValid(value, 'isDecimal')) {
-        return { result: false, error: '*Invalid value type'};
+        return { result: false, error: '*Invalid value type' };
       }
 
       if (isLessThanMinValue(value, schema.minValue)) {
@@ -139,6 +139,14 @@ export function validateDataAgainstSchema(name, value, schema) {
       return { result: true };
     case DataType.Date:
       if (schema.isRequired && isNullOrUndefined(value)) {
+        return {
+          result: false,
+          error: '*Required',
+        };
+      }
+      return { result: true };
+    case DataType.Array:
+      if (schema.isRequired && (isNullOrUndefined(value) || value.length === 0)) {
         return {
           result: false,
           error: '*Required',
