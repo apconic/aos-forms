@@ -76,7 +76,7 @@ export default class TextDataField extends Component {
       floatingLabelText: labelText,
       floatingLabelFixed,
       floatingLabelStyle,
-      fullWidth: fullWidth || true,
+      fullWidth: true,
       hintStyle,
       hintText,
       id,
