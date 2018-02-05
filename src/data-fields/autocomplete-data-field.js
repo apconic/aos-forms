@@ -96,7 +96,7 @@ export default class AutoCompleteDataField extends Component {
         dataSourceConfig={dataSourceConfig}
         errorText={errorText}
         floatingLabelText={labelText}
-        fullWidth={fullWidth}
+        fullWidth={fullWidth || true}
         name={name}
         filter={filter}
         onNewRequest={this.onNewRequest}

@@ -34,6 +34,7 @@ export default class TimeDataField extends Component {
       onChange: this.handleChange,
       onDismiss: this.props.onDismiss,
       onFocus: this.props.onFocus,
+      fullWidth: true,
       onShow: this.props.onShow,
       onTouchTap: this.props.onTouchTap,
       pedantic: this.props.pedantic || false,
