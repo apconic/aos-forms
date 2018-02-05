@@ -96,6 +96,7 @@ export default class DateDataField extends Component {
       shouldDisableDate,
       style,
       textFieldStyle,
+      fullWidth: true,
     };
 
     if (!isNullOrUndefined(DateTimeFormat)) {
